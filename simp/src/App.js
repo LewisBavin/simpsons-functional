@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { React, useState, useEffect, useReducer } from "react";
+import joi from "joi";
+import Header from "./Parts/Header";
+import Chars from "./Parts/Chars";
+import { quotes } from "./Parts/getQuotes";
+
+const initialState = { quotes: [], liked: [], deleted: [], view: "" };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "Initialise":
+      return { ...state, quotes: action.args };
+    case "changeView":
+      return { ...state, view: action.args.target.id };
+    default:
+      throw new Error();
+  }
+}
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => dispatch({ type: "Initialise", args: quotes }), []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <Header />
+      </div>
+      <div>
+        <Chars />
+      </div>
+    </>
   );
 }
 
