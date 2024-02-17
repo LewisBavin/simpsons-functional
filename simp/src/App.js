@@ -6,12 +6,25 @@ import Header from "./Parts/Header";
 import Chars from "./Parts/Chars";
 import { quotes } from "./Parts/getQuotes";
 
-const initialState = { quotes: [], liked: [], deleted: [], view: "" };
+const initialState = {
+  quotes: [],
+  liked: [],
+  deleted: [],
+  view: "",
+  sort: { type: "quote", dir: "asc" },
+  highlight: { start: -1, hLength: 0 },
+};
 
 function reducer(state, action) {
+  let args = action.args;
   switch (action.type) {
     case "Initialise":
-      return { ...state, quotes: action.args };
+      args.map((item, index) => {
+        item.id = index;
+        item.liked = false;
+        item.visible = true;
+      });
+      return { ...state, quotes: args, view: "quotes" };
     case "changeView":
       return { ...state, view: action.args.target.id };
     default:
@@ -22,14 +35,23 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => dispatch({ type: "Initialise", args: quotes }), []);
+  console.log("rendered");
+  console.log(state.view);
 
+  if (!state.view) {
+    return <>loading...</>;
+  }
   return (
     <>
       <div>
-        <Header />
+        <Header {...state} />
       </div>
       <div>
-        <Chars />
+        <Chars
+          quotes={state[state.view]}
+          sort={state.sort}
+          highlight={state.highlight}
+        />
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
-function Header() {
+function Header(props) {
+    console.log(props)
     return ( true);
 }
 
