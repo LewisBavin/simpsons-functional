@@ -4,18 +4,34 @@ function Chars(props) {
   (function sortChars() {
     let compare = props.sort.type;
     props.quotes.sort((a, b) => {
-      if (a[compare].length < b[compare].length) {
-        return 1;
-      } else if (a[compare].length > b[compare].length) {
+      let A = compare == "quote" ? a[compare].length : a[compare];
+      let B = compare == "quote" ? b[compare].length : b[compare];
+      if (A < B) {
         return -1;
+      } else if (A > B) {
+        return 1;
       }
       return 0;
     });
     if (props.sort.dir == "desc") props.quotes.reverse();
   })();
-  return props.quotes.map((item) => {
-    return <Char {...item} />;
-  });
+  return ( 
+    
+    <><div className="flx jc-c showing">Showing {props.quotes.length} {props.view}</div><div className="flx col quotes">
+    {props.quotes.map((item, index) => {
+      return (
+        <Char
+          key={index}
+          {...item}
+          view={props.view}
+          highlight={props.highlight}
+          reversed={index % 2}
+          likeDelete={props.likeDelete}
+        />
+      );
+    })}
+  </div></>
+  );
 }
 
 export default Chars;
