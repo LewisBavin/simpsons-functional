@@ -5,32 +5,17 @@ function Header(props) {
       <div>SIMPSONS QUOTES</div>
       <div>
         <input
-          onInput={(e) => props.search(e)}
+          onInput={props.search}
           type="text"
           placeholder="search..."
         ></input>
-        <button
-          id="quotes"
-          onClick={(e) => {
-            props.changeView(e);
-          }}
-        >
+        <button id="quotes" onClick={props.changeView}>
           All Quotes
         </button>
-        <button
-          id="liked"
-          onClick={(e) => {
-            props.changeView(e);
-          }}
-        >
+        <button id="liked" onClick={props.changeView}>
           Liked
         </button>
-        <button
-          id="deleted"
-          onClick={(e) => {
-            props.changeView(e);
-          }}
-        >
+        <button id="deleted" onClick={props.changeView}>
           Deleted
         </button>
       </div>
@@ -41,9 +26,7 @@ function Header(props) {
           name="sort"
           id="type"
           value={props.sort.type}
-          onChange={(e) => {
-            props.changeSort(e);
-          }}
+          onChange={props.changeSort}
         >
           <option value="quote">Quote Length</option>
           <option value="character">Character Name</option>
@@ -52,9 +35,7 @@ function Header(props) {
           name="sort"
           id="dir"
           value={props.sort.dir}
-          onChange={(e) => {
-            props.changeSort(e);
-          }}
+          onChange={props.changeSort}
         >
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>

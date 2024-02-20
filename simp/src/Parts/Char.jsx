@@ -1,22 +1,26 @@
 import React from "react";
-import Controls from "./Slide/Controls";
-import Name from "./Slide/Name";
-import Quote from "./Slide/Quote";
-import Img from "./Slide/Img";
 
 function Char(props) {
   let img = props.image,
-    name = props.character,
-    quote = props.quote,
-    dir = props.characterDirection;
+    dir = props.characterDirection,
+    str = props.highlight;
+  let show = true;
 
-  let hidden;
-  function highlight(nameStr, quoteStr, srchStr) {
-    hidden = !nameStr.includes(srchStr) && !quoteStr.includes(srchStr);
+  function createHighlights(type) {
+    let hStr = props[type],
+      len = str.length,
+      start = hStr.toLowerCase().search(str.toLowerCase());
+    show = len == 0 || start > -1;
+    return (
+      <>
+        {start > 0 ? hStr.slice(0, start) : null}
+        <mark>{start > -1 ? hStr.slice(start, start + len) : null}</mark>
+        {start > -1 ? hStr.slice(start + len, hStr.length) : hStr}
+      </>
+    );
   }
-  highlight(name, quote, props.highlight);
 
-  return !hidden ? (
+  return show ? (
     <>
       <div className={"flx slide jc-c" + (props.reversed ? " reversed" : "")}>
         <div>
@@ -25,10 +29,10 @@ function Char(props) {
         <div className=" flx col jc-c ai-c content">
           <span className="quote">
             <i>
-              <b>"{quote}"</b>
+              <b>"{createHighlights("quote")}"</b>
             </i>
           </span>
-          <span className="name">- {name}</span>
+          <span className="name">- {createHighlights("character")}</span>
           <div className="controls">
             <button
               className={props.view == "deleted" ? "hidden" : null}

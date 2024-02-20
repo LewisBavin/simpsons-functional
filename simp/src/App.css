@@ -15,8 +15,25 @@
   justify-content: center;
 }
 
+.h100{
+  height: 100%
+}
+
 body{
   background-color: yellow;
+}
+
+.w-m{
+  width: min-content
+}
+
+.foot{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: darkblue;
+  width: 100vw;
+  height: 50px;
 }
 
 .slide{

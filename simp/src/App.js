@@ -1,9 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { React, useState, useEffect, useReducer } from "react";
-import joi from "joi";
+import Joi from 'joi';
 import Header from "./Parts/Header";
 import Chars from "./Parts/Chars";
+import Footer from "./Footer";
 import { quotes } from "./Parts/getQuotes";
 
 const initialState = {
@@ -45,6 +46,7 @@ function reducer(state, action) {
       return filterViews();
 
     case "search":
+      // let schema = Joi.string()
       let str = args.target.value;
       return { ...filterViews(), highlight: str };
 
@@ -91,6 +93,7 @@ function App() {
           }
           highlight={state.highlight}
         />
+        <Footer />
       </>
     );
   }

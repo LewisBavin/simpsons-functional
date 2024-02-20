@@ -15,6 +15,11 @@ function Chars(props) {
     });
     if (props.sort.dir == "desc") props.quotes.reverse();
   })();
+  console.log('rendered')
+
+
+
+
   return ( 
     
     <><div className="flx jc-c showing">Showing {props.quotes.length} {props.view}</div><div className="flx col quotes">
